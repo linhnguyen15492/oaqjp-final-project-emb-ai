@@ -1,4 +1,4 @@
-from emotion_detection import emotion_detector
+from EmotionDetection.emotion_detection import emotion_detector
 
 text = "I love this new technology."
 
