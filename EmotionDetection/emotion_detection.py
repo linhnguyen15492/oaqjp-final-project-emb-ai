@@ -16,7 +16,16 @@ def emotion_detector(text_to_analyze):
     # Sending a POST request to the sentiment analysis API
     response = requests.post(url, json=myobj, headers=header)
 
-    # Parsing the JSON response from the API
-    formatted_response = json.loads(response.text)
+    if response.status_code == 200:
+        # Parsing the JSON response from the API
+        formatted_response = json.loads(response.text)
 
-    return formatted_response
+        emotions = formatted_response.get('emotionPredictions')[0].get('emotion')
+
+        dominant = sorted(emotions, key=emotions.get, reverse=True)[0]
+
+        emotions['dominant_emotion'] = dominant
+
+        return emotions
+    
+    return None
